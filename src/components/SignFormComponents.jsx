@@ -77,7 +77,7 @@ export const FormAccountAndPasswort = (props) => {
                     onChange={(ev) => onChange("account", ev.target.value)}
                     type="text"
                     className={"form-control" + account_class}
-                    placeholder="Аккаунт в блокчейне golos"
+                    placeholder="Аккаунт в блокчейне viz"
                     required />
 
                 <div className="invalid-feedback">{account_error}</div>

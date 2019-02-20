@@ -2,9 +2,9 @@
 * Вспомогательные классы для валидирования входных данных (операций) и для отображения.
 */
 import Ajv from "ajv";
-import GolosSchema from "./opschemas";
+import VizSchema from "./opschemas";
 
-import operations from "golos-js/lib/broadcast/operations";
+import operations from "viz-world-js/lib/broadcast/operations";
 
 const ROLES_PRIORITY = {
     "owner" : 0,
@@ -19,8 +19,8 @@ function sort_roles(roles) {
     })
 }
 
-const ajv = new Ajv({schemas: GolosSchema, verbose: true});
-const validate = ajv.getSchema("/golos/transaction");
+const ajv = new Ajv({schemas: VizSchema, verbose: true});
+const validate = ajv.getSchema("/viz/transaction");
 
 export class Transaction {
     constructor(json) {

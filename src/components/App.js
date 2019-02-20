@@ -7,8 +7,12 @@ import TransactionView from "./TransactionView";
 import "bootstrap/dist/css/bootstrap.css"
 import { Transaction } from "../service/operation";
 import ErrorsView from "./ErrorsView";
+import viz from "viz-world-js";
 
 import sanatizer from "@braintree/sanitize-url";
+
+viz.config.set("websocket", "wss://ws.viz.ropox.app");
+
 
 const ErrorMessage = (props) => {
     return (
@@ -31,7 +35,7 @@ class App extends Component {
 
     componentDidMount() {
         const params = queryString.parse(window.location.search);
-        const title = (params["title"] || "Писарь");
+        const title = (params["title"] || "Визирь");
         const subtitle = (params["subtitle"]);
         const nowif = Object.keys(params).includes("nowif");
         const user = params["user"];
@@ -87,7 +91,7 @@ class App extends Component {
                             <div>
                                 <h3>{this.state.title}</h3>
                                 {this.state.subtitle && <h5>{this.state.subtitle}</h5>}
-                                <br /><small>Подпись транзакции GOLOS
+                                <br /><small>Подпись транзакции VIZ
                                 <a rel="noopener noreferrer" target="_blank" href="http://golos.io/@ropox/sign">&nbsp;<span className="rounded-circle bg-info text-white font-weight-bold">&nbsp;?&nbsp;</span></a></small>
                             </div>
                         </nav>

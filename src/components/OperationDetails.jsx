@@ -23,17 +23,12 @@ const OP_TRANSLATIONS = {
     limit_order_create: "Создать ордер", 
     limit_order_cancel: "Отменить ордер", 
 
-    feed_publish: "Опубликовать фид", 
-    convert: "Конвертировать GBG в GOLOS", 
-
     account_create: "Создать аккаунт", 
     account_update: "Обновить аккаунт", 
 
     witness_update: "Обновить делегата", 
     account_witness_vote: "Проголосовать за делегата", 
     account_witness_proxy: "Назначить доверенного", 
-
-    pow: "Proof of Work", 
 
     custom: "custom", 
 

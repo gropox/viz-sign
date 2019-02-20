@@ -1,4 +1,4 @@
-const golos = require("golos-js");
+const viz = require("viz-world-js");
 
 export const SIGN_TYPE = {
     PASSWORD: "password",
@@ -24,13 +24,13 @@ async function signandsend(transaction, sign_type, account, password) {
     const key = {[required_wif]: wif};
 
     //Подготавливаем транзакцию используя метод библиотеки. Получаем блок референсный блок, выставляем expiration.
-    const prepared_tx = await golos.broadcast._prepareTransaction(tx);
+    const prepared_tx = await viz.broadcast._prepareTransaction(tx);
     
     //Подписываем транзакцию ключем
-    const signed_tx = golos.auth.signTransaction(prepared_tx, key);
+    const signed_tx = viz.auth.signTransaction(prepared_tx, key);
 
     //Отправляем транзакцию ноде и в ответ получаем ID транзакции и блок.
-    let ret = await golos.api.broadcastTransactionSynchronousAsync(signed_tx);
+    let ret = await viz.api.broadcastTransactionSynchronousAsync(signed_tx);
     return ret;
 }
 
@@ -46,7 +46,7 @@ async function signandsend(transaction, sign_type, account, password) {
 function getWif(sign_type, account, password, required_wif) {
     switch(sign_type) {
         case SIGN_TYPE.PASSWORD:
-            const wifs = golos.auth.getPrivateKeys(account, password, [required_wif]);
+            const wifs = viz.auth.getPrivateKeys(account, password, [required_wif]);
             return wifs[required_wif];
         default:
             return password;
@@ -62,7 +62,7 @@ export async function checkAccount(account) {
     if(!account) {
         return "Аккаунт обязателен для аутентификации паролем";
     }
-    const [acc] = await golos.api.getAccountsAsync([account]);
+    const [acc] = await viz.api.getAccountsAsync([account]);
     if(!acc) {
         return "Аккаунт с таким именем не существует!";
     }

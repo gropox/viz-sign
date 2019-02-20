@@ -71,11 +71,11 @@ const known_operations = [
  * Схема параметра transaction. Ожидается массив (Array) операций
  */
 const transaction = {
-    "$id" : "/golos/transaction",
+    "$id" : "/viz/transaction",
     type: "array",
     minItems: 1,
     items: [ 
-        {"$ref": "/golos/operation"}
+        {"$ref": "/viz/operation"}
     ]
 }
 
@@ -83,7 +83,7 @@ const transaction = {
  * Операция 
  */
 const operation = {
-    "$id" : "/golos/operation",
+    "$id" : "/viz/operation",
     type: "array",
     minItems: 2, maxLength: 2,
     items: [
@@ -94,34 +94,34 @@ const operation = {
 
 
 const account = {
-    "$id" : "/golos/account",
+    "$id" : "/viz/account",
     type: "string",
     pattern: "^[a-z][-\\.a-z\\d]{2,15}[a-z\\d]$"
 }
 
 const permlink = {
-    "$id" : "/golos/permlink",
+    "$id" : "/viz/permlink",
     type: "string",
     pattern: "^.{1,256}$"
 }
 
 const public_key = {
-    "$id" : "/golos/public_key",
+    "$id" : "/viz/public_key",
     type: "string",
     pattern: "^GLS[0-9a-zA-Z]{50}$"
 }
 
 const percent = {
-    "$id" : "/golos/percent",
+    "$id" : "/viz/percent",
     type: "integer",
     minimum: 0, 
     maximum: 10000
 }
 
 const asset = {
-    "$id" : "/golos/asset",
+    "$id" : "/viz/asset",
     type: "string",
-    pattern: "^[0-9]+\\.[0-9]{3} (GOLOS|GBG)$"
+    pattern: "^[0-9]+\\.[0-9]{3} (viz|GBG)$"
 }
 
 export default [
