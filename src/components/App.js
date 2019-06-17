@@ -11,8 +11,53 @@ import viz from "viz-js-lib";
 
 import sanatizer from "@braintree/sanitize-url";
 
-viz.config.set("websocket", "wss://ws.viz.ropox.app");
-
+function checkWorkingNode() {
+    const NODES = [
+        "wss://solox.world/ws",
+        "wss://vizlite.lexai.host/",
+    ];
+    let node = localStorage.getItem("node") || NODES[0];
+    const idx = Math.max(NODES.indexOf(node), 0);
+    let checked = 0;
+    const find = (idx) => {
+        if (idx >= NODES.length) {
+            idx = 0;
+        }
+        if (checked >= NODES.length) {
+            alert("no working nodes found");
+            return;
+        }
+        node = NODES[idx];
+        console.log("check", idx, node);
+        viz.config.set("websocket", node);
+        try {
+            viz.api.stop();
+        } catch(e) {
+        }
+        
+        let timeout = false;
+        let timer = setTimeout(() => {
+            console.log("timeout", NODES[idx])
+            timeout = true;
+            find(idx + 1);
+        }, 3000);
+        viz.api.getDynamicGlobalPropertiesAsync()
+            .then(props => {
+                if(!timeout) {
+                    check = props.head_block_number;
+                    console.log("found working node", node);
+                    localStorage.setItem("node", node);
+                    clearTimeout(timer);
+                }
+            })
+            .catch(e => {
+                console.log("connection error", node, e);
+                find(idx + 1);
+            });
+    }
+    find(idx);
+}
+checkWorkingNode();
 
 const ErrorMessage = (props) => {
     return (
