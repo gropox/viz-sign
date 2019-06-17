@@ -4,7 +4,7 @@
 import Ajv from "ajv";
 import VizSchema from "./opschemas";
 
-import operations from "viz-world-js/lib/broadcast/operations";
+import operations from "viz-js-lib/lib/broadcast/operations";
 
 const ROLES_PRIORITY = {
     "owner" : 0,

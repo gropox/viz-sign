@@ -7,7 +7,7 @@ import TransactionView from "./TransactionView";
 import "bootstrap/dist/css/bootstrap.css"
 import { Transaction } from "../service/operation";
 import ErrorsView from "./ErrorsView";
-import viz from "viz-world-js";
+import viz from "viz-js-lib";
 
 import sanatizer from "@braintree/sanitize-url";
 

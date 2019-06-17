@@ -1,4 +1,4 @@
-const viz = require("viz-world-js");
+const viz = require("viz-js-lib");
 
 export const SIGN_TYPE = {
     PASSWORD: "password",
