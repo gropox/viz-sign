@@ -1,8 +1,39 @@
-const viz = require("viz-world-js");
+const viz = require("viz-js-lib");
 
 export const SIGN_TYPE = {
     PASSWORD: "password",
     WIF: "wif",
+}
+
+const WEBSOCKET = "websocket";
+const DEFAULT_WS = "wss://viz.lexai.host";
+//wss://viz.lexai.host/','wss://solox.world/ws
+export const NODES = {
+    [DEFAULT_WS] : "lex",
+    "wss://solox.world/ws" : "solox"
+}
+
+export function getCurrentSelectedNode() {
+    return localStorage.getItem(WEBSOCKET) || DEFAULT_WS;
+}
+
+export function setCurrentSelectedNode(ws = DEFAULT_WS) {
+    viz.api.stop();
+    viz.config.set(WEBSOCKET, ws);
+
+    localStorage.setItem(WEBSOCKET, ws);
+}
+
+function setupNode() {
+    const ws = getCurrentSelectedNode();
+    try {
+        console.log("stop viz");
+        viz.api.stop();
+    } catch(e) {
+        console.error(e);
+    }
+    console.log("set ws to " + ws);
+    viz.config.set(WEBSOCKET, ws);
 }
 
 /**
@@ -14,6 +45,9 @@ export const SIGN_TYPE = {
  * @returns "Возвращает данные о созданной транзакции"
  */
 async function signandsend(transaction, sign_type, account, password) {
+
+    setupNode();
+
     const {raw_transaction, required_wif} = transaction;
 
     //Получаем ключ из аккаунта и пароля, если передан пароль
@@ -59,6 +93,7 @@ function getWif(sign_type, account, password, required_wif) {
  * @returns Возвращет текст с сообщением об ошибке.
  */
 export async function checkAccount(account) {
+    setupNode();
     if(!account) {
         return "Аккаунт обязателен для аутентификации паролем";
     }
